@@ -46,8 +46,6 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
   • Templates Jinja2 para renderização dinâmica de listas e detalhes de pedidos.  
 - **Documentação técnica:**  
 
-  • Estrutura do banco, fluxos de transação e exemplos de uso documentados em Markdown via Docsify.
-
 ---
 
 #### Resultados e Benefícios
