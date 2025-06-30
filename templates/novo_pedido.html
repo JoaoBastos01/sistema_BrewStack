@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}Novo Pedido{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <div id="content-header">
+        <h1>Novo Pedido</h1>
+        <p id="total"></p>
+        <button class="action-button" id="botao-fazer-pedido">Registrar Pedido</button>
+    </div>
+    <form method="post" action="{{ url_for('pedidos.novo_pedido') }}" id="form-novo-pedido">
+        {% for item in itens %}
+        <div class="cardapio-item">
+            <h3>{{ item.nome }}</h3>
+            <p>R$ {{ item.preco }}</p>
+            <label for="quantidade-{{item.id}}">
+                Quantidade
+                <input type="number" name="quantidade-{{item.id}}">
+            </label>
+        </div>
+        {% endfor %}
+    </form>
+</div>
+<script>
+    document.getElementById('botao-fazer-pedido').addEventListener('click', function () {
+        document.querySelector('form').submit();
+    });
+
+    const total = document.getElementById('total')
+    const inputs = document.querySelectorAll('input[type="number"]')
+    function updateTotal() {
+        let totalValue = 0;
+        inputs.forEach(input => {
+            const quantidade = parseInt(input.value) || 0;
+            const preco = parseFloat(input.closest('.cardapio-item').querySelector('p').textContent.replace('R$ ', '')) || 0;
+            totalValue += quantidade * preco;
+        });
+        total.textContent = `Total: R$ ${totalValue.toFixed(2)}`;
+    }
+    inputs.forEach(input => {
+        input.addEventListener('input', updateTotal);
+        input.dispatchEvent(new Event('input'))
+    });
+</script>
+{% endblock %}

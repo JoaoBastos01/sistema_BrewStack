@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Detalhes do Pedido{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <div id="content-header">
+        <h2>Detalhes do Pedido #{{ pedido.id }}</h2>
+        <p>Status: {{ pedido.status }}</p>
+        {% if status_options %}
+        <form method="post" class="status-form">
+            <label for="novo_status">Novo status:</label>
+            <select name="novo_status" id="novo_status">
+                {% for s in status_options %}
+                <option value="{{ s }}">{{ s }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Atualizar</button>
+        </form>
+        {% endif %}
+    </div>
+    <div id="detalhes-pedido">
+        <p>Cliente: {{ pedido.cliente_nome }}</p>
+        <p>Itens:</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Quantidade</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in pedido.itens %}
+                <tr>
+                    <td>{{ item.nome }}</td>
+                    <td>{{ item.quantidade }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

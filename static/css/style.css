@@ -1,0 +1,364 @@
+.success {
+    color: green;
+}
+
+.danger {
+    color: red;
+}
+
+.warning {
+    color: orange;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    color: #333;
+    min-height: 100vh;
+}
+
+.navbar {
+    width: 100%;
+    background-color: #ffffff;
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.container-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-nav {
+    width: 30px;
+    height: auto;
+    margin-right: 0.5rem;
+}
+
+.logo-text {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #222;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+}
+
+.menu li a {
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: #222;
+    transition: color 0.2s ease;
+}
+
+.menu li a:hover {
+    color: #a35a2b;
+}
+
+.navbar-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 28px;
+    height: 21px;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.navbar-toggle .bar {
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #222;
+    border-radius: 3px;
+}
+
+.hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background: url('../img/hero.jpg') center center/cover no-repeat;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.hero-content {
+    position: relative;
+    text-align: center;
+    color: #ffffff;
+    max-width: 90%;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+.hero-subtitle {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.7);
+}
+
+.flash-messages {
+    padding: 1rem 1.5rem;
+}
+
+#content-header {
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    border-bottom: 2px solid #ddd;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.action-button {
+    background-color: #333;
+    color: #fff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    font-weight: 900;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.action-button:hover {
+    background-color: #555;
+    color: #f7f7f7;
+    transform: translateY(-2px);
+}
+
+
+#form-novo-pedido,
+#cardapio-itens-container ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 16px;
+    padding: 0;
+    margin: 0;
+}
+
+#cardapio-itens-container li {
+    list-style: none;
+}
+
+#button-novo-item {
+    margin-top: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+table {
+    margin-top: 8px;
+    margin-left: 20px;
+    border: #222 1px solid;
+    border-collapse: collapse;
+    text-align: center;
+
+    td,
+    th {
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-collapse: collapse;
+    }
+}
+
+.cardapio-item {
+    display: flex;
+    gap: 8px;
+    flex-direction: column;
+    border: 2px solid #ddd;
+    padding: 5px 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.cardapio-item input {
+    width: 55px;
+    padding: 2px;
+    box-sizing: border-box;
+}
+
+main {
+    min-height: 74vh;
+}
+
+.content-wrapper {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    max-width: 800px;
+    margin: auto;
+    height: 100%;
+}
+
+.footer {
+    background-color: #222222;
+    color: #f1f1f1;
+    padding: 2rem 0;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 0 1.5rem;
+}
+
+.footer-secao {
+    flex: 1 1 200px;
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.footer-logo {
+    width: 30px;
+    height: auto;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+}
+
+.footer-brand {
+    display: inline-flex;
+    align-items: center;
+    color: #ffffff;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+}
+
+.footer-secao h3,
+.footer-secao h4 {
+    color: #ffffff;
+    margin-bottom: 0.75rem;
+}
+
+.footer-secao p {
+    font-size: 0.95rem;
+    line-height: 1.4rem;
+}
+
+.footer-secao ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-secao ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-secao ul li a {
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease;
+}
+
+.footer-secao ul li a:hover {
+    color: #a35a2b;
+}
+
+.redes-sociais {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0;
+    margin: 0;
+}
+
+.redes-sociais li {
+    list-style: none;
+}
+
+.redes-sociais li a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #f1f1f1;
+    text-decoration: none;
+    font-size: 0.95rem;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.redes-sociais li a i {
+    font-size: 1.1rem;
+    color: #f1f1f1;
+    transition: color 0.2s ease;
+}
+
+.redes-sociais li a:hover {
+    color: #a35a2b;
+    transform: scale(1.02);
+}
+
+.redes-sociais li a:hover i {
+    color: #a35a2b;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 992px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+}

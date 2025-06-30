@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Painel Admin{% endblock %}
+{% block content %}
+
+<div class="content-wrapper">
+    <div id="content-header">
+        <h2>Painel de Pedidos</h2>
+    </div>
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Cliente</th>
+            <th>Data</th>
+            <th>Status</th>
+            <th>Ação</th>
+        </tr>
+        {% for pedido in pedidos %}
+        <tr>
+            <td>{{ pedido.id }}</td>
+            <td>{{ pedido.cliente_nome }}</td>
+            <td>{{ pedido.data_hora.strftime('%d/%m/%Y %H:%M') }}</td>
+            <td>{{ pedido.status }}</td>
+            <td>
+                <a href="{{ url_for('pedidos.detalhes', pedido_id=pedido.id) }}">Detalhes</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

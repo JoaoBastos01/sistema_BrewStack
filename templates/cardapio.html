@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Cardápio{% endblock %}
+{% block content %}
+<div class="content-wrapper">
+    <div id="content-header">
+        <h1>Cardápio</h1>
+        <a class="action-button" href="{{ url_for('pedidos.novo_pedido') }}">Fazer Pedido</a>
+    </div>
+    <div id="cardapio-itens-container">
+        <ul>
+            {% for item in itens %}
+            <li>
+                <div class="cardapio-item">
+                    <h3>{{ item.nome }}</h3>
+                    <p>{{ item.descricao }}</p>
+                    <h4>R$ {{ item.preco }}</h4>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% if session.get('is_admin') %}
+    <button class="action-button" type="button" id="button-novo-item">Adicionar item</button>
+    <dialog id="dialog-novo-item">
+        <form id="form-novo-item" method="post">
+            <button type="button" id="button-dialog-close">X</button>
+            <div class="form-group">
+                <label for="novo-item-nome">Nome</label>
+                <input type="text" name="novo-item-nome">
+            </div>
+            <div class="form-group">
+                <label for="novo-item-descricao">Descrição</label>
+                <input type="text" name="novo-item-descricao">
+            </div>
+            <div class="form-group">
+                <label for="novo-item-valor">Valor</label>
+                <input type="number" name="novo-item-valor">
+            </div>
+            <div class="form-group">
+                <label for="novo-item-estoque">Quantidade no Estoque</label>
+                <input type="number" name="novo-item-estoque">
+            </div>
+            <button class="action-button" type="submit">Salvar</button>
+        </form>
+    </dialog>
+    <script>
+        const dialog = document.getElementById("dialog-novo-item")
+        const buttonAbreDialog = document.getElementById("button-novo-item")
+        const buttonFechaDialog = document.getElementById("button-dialog-close")
+
+        buttonAbreDialog.addEventListener("click", () => dialog.showModal())
+        buttonFechaDialog.addEventListener("click", () => dialog.close())
+    </script>
+    <style>
+        #dialog-novo-item {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 24px 32px;
+            border: none;
+            border-radius: 8px;
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.25);
+            background: #fff;
+            min-width: 320px;
+            z-index: 1001;
+        }
+
+        #dialog-novo-item::backdrop {
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 1000;
+        }
+
+        #button-dialog-close {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: transparent;
+            border: none;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+    </style>
+    {% endif %}
+</div>
+{% endblock %}
