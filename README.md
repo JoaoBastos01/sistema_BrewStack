@@ -16,7 +16,6 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
 - **Backend:** Python (Flask)  
 - **Banco de Dados:** PostgreSQL (psycopg2)  
 - **Templates:** Jinja2  
-- **Doc:** Markdown via Docsify
 - **Orquestração:** Docker / docker-compose
 
 ---
@@ -121,8 +120,6 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
   - Busca usuário por `username`.  
   - Verifica hash da senha (`werkzeug.security`).  
   - Retorna dicionário com `id`, `username` e `is_admin` (se válido).  
-- **(Possível função adicional) `buscar_usuario_por_username` / `criar_usuario`**  
-  - Buscam/criam usuário; usadas em `auth/routes.py`.
 
 ---
 
