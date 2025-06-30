@@ -18,7 +18,7 @@ CREATE TABLE itens_cardapio (
     preco NUMERIC(10,2) NOT NULL,
     descricao TEXT,
     quantidade_estoque INTEGER NOT NULL DEFAULT 0
-);w
+);
 
 CREATE TYPE status_pedido_enum AS ENUM (
     'em preparo',
@@ -49,7 +49,7 @@ CREATE TABLE logs (
     data_hora TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
--- Função para registrar pedido
+
 CREATE OR REPLACE FUNCTION registrar_pedido(cliente_id INTEGER, itens JSON)
 RETURNS INTEGER AS $$
 DECLARE
@@ -71,14 +71,14 @@ BEGIN
             RAISE EXCEPTION 'Estoque insuficiente para o item %', item_id;
         END IF;
 
-        -- Pega o preço do item no momento do pedido
+      
         SELECT preco INTO preco_item FROM itens_cardapio WHERE id = item_id;
 
-        -- Insere item no pedido
+       
         INSERT INTO itens_pedido (pedido_id, item_id, quantidade, preco_unitario)
         VALUES (novo_pedido_id, item_id, quantidade, preco_item);
 
-        -- Atualiza estoque
+        
         UPDATE itens_cardapio SET quantidade_estoque = quantidade_estoque - quantidade
         WHERE id = item_id;
     END LOOP;
@@ -103,7 +103,7 @@ AFTER UPDATE ON pedidos
 FOR EACH ROW
 EXECUTE FUNCTION log_alteracao_pedido();
 
--- Trigger: Validar estoque antes de inserir item_pedido
+
 CREATE OR REPLACE FUNCTION validar_estoque()
 RETURNS TRIGGER AS $$
 DECLARE
@@ -122,7 +122,7 @@ BEFORE INSERT ON itens_pedido
 FOR EACH ROW
 EXECUTE FUNCTION validar_estoque();
 
--- Trigger: Descontar estoque após inserir item_pedido
+
 CREATE OR REPLACE FUNCTION descontar_estoque()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -138,7 +138,7 @@ AFTER INSERT ON itens_pedido
 FOR EACH ROW
 EXECUTE FUNCTION descontar_estoque();
 
--- Trigger: Validar transição de status
+
 CREATE OR REPLACE FUNCTION validar_transicao_status()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -157,7 +157,7 @@ BEFORE UPDATE OF status ON pedidos
 FOR EACH ROW
 EXECUTE FUNCTION validar_transicao_status();
 
--- Trigger: Log de cancelamento
+
 CREATE OR REPLACE FUNCTION log_cancelamento()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -174,7 +174,7 @@ AFTER UPDATE OF status ON pedidos
 FOR EACH ROW
 EXECUTE FUNCTION log_cancelamento();
 
--- Exemplo de usuário admin (substitua o hash pela senha gerada no Python)
+
 INSERT INTO usuarios (username, senha_hash, is_admin)
 VALUES (
     'admin',
@@ -182,7 +182,7 @@ VALUES (
     TRUE
 );
 
--- Exemplo de item no cardápio
+
 INSERT INTO itens_cardapio (nome, preco, descricao, quantidade_estoque)
 VALUES ('Pizza Calabresa', 45.00, 'Pizza de calabresa com queijo e cebola', 10);
 
