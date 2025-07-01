@@ -5,33 +5,50 @@
 
 ---
 
-#### Descrição
+### Descrição
 
 Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Flask/Jinja2 e toda a lógica de negócio e integridade implementadas diretamente no PostgreSQL por meio de stored procedures, funções e triggers.
 
 ---
 
-#### Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 - **Backend:** Python (Flask)  
 - **Banco de Dados:** PostgreSQL (psycopg2)  
 - **Templates:** Jinja2  
+- **Doc:** Markdown via Docsify
 - **Orquestração:** Docker / docker-compose
 
 ---
 
-#### Principais Atividades
+## Principais Atividades
 
-- **Modelagem de dados:**  
+- **Modelagem do banco dados sequencial:**  
 
-  • 7 tabelas: `usuarios`, `itens_cardapio`, `pedidos`, `itens_pedido`, `estoque`, `status_pedido`, `logs`.
+- Tabela **usuarios** Armazena os dados de autenticação e perfil de cada usuário do sistema, com colunas para id (chave primária sequencial), username (login único de até 50 caracteres), senha_hash (armazenamento do hash seguro da senha) e is_admin (flag booleana indicando privilégios de administrador, padrão FALSE).
+
+- Tabela **itens_cardapio**
+Define os produtos disponíveis para pedido, incluindo id (chave primária), nome (até 100 caracteres), preco (numérico com duas casas decimais), descricao (texto livre) e quantidade_estoque (controle de estoque atual, inteiro com valor inicial zero).
+
+- Tipo **status_pedido_enum**
+Enumera os quatro estados possíveis de um pedido — em preparo, pronto, entregue e cancelado — garantindo que o campo de status aceite apenas valores válidos e padronizados.
+
+- Tabela **pedidos**
+Registra cada pedido com id (chave primária), cliente_id (referência a usuarios(id)), status (do tipo enum, padrão em preparo) e data_hora (timestamp de criação, padrão CURRENT_TIMESTAMP).
+
+- Tabela **itens_pedido**
+Associa itens de cardápio a pedidos, com id (chave primária), pedido_id (FK para pedidos, com ON DELETE CASCADE), item_id (FK para itens_cardapio), quantidade (inteiro obrigatório e positivo) e preco_unitario (valor registrado no momento do pedido).
+
+- Tabela **logs**
+Mantém o histórico de ações realizadas sobre pedidos, contendo id (chave primária), pedido_id (referência a pedidos), acao (descrição da operação, até 100 caracteres) e data_hora (timestamp da ocorrência, padrão NOW()).
 
 - **Stored procedures:**  
 
   • `registrar_pedido(cliente_id, itens[])` – cria pedido com múltiplos itens e valida estoque.  
   • `calcular_total_pedido(pedido_id)` – soma valores dos itens.  
   • `listar_pedidos(status)` – retorna pedidos por status.  
-  • `trocar_status_pedido(pedido_id, novo_status)` – altera status, validando transições.  
+  • `trocar_status_pedido(pedido_id, novo_status)` – altera status, validando transições.
+
 - **Triggers e funções de apoio:**  
 
   1. `trg_validar_estoque` – impede inserção de item sem estoque suficiente.  
@@ -39,11 +56,15 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
   3. `trg_validar_status` – aplica regras de transição de status (e.g. “entregue” não retorna a “em preparo”).  
   4. `trg_log_alteracao` – registra auditoria de qualquer atualização na tabela `pedidos`.  
   5. `trg_log_cancelamento` – gera log específico em casos de cancelamento de pedido.  
+
 - **Desenvolvimento de interface:**  
 
   • Rotas Flask para visualização de cardápio, criação de pedido e painel administrativo.  
   • Templates Jinja2 para renderização dinâmica de listas e detalhes de pedidos.  
+
 - **Documentação técnica:**  
+
+  • Estrutura do banco, fluxos de transação e exemplos de uso documentados em Markdown via Docsify.
 
 ---
 
@@ -53,6 +74,7 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
 - **Trilha de auditoria completa** sem depender de implementação adicional no código da aplicação.  
 - **Interface unificada** e de fácil manutenção, com atualizações de docs imediatas via Markdown.
 
+---
 
 ## Estrutura e Principais Blocos de Código
 
@@ -120,6 +142,8 @@ Aplicação web para gerenciamento de pedidos de restaurante, com frontend em Fl
   - Busca usuário por `username`.  
   - Verifica hash da senha (`werkzeug.security`).  
   - Retorna dicionário com `id`, `username` e `is_admin` (se válido).  
+- **(Possível função adicional) `buscar_usuario_por_username` / `criar_usuario`**  
+  - Buscam/criam usuário; usadas em `auth/routes.py`.
 
 ---
 
